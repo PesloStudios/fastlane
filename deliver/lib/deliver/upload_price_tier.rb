@@ -21,6 +21,13 @@ module Deliver
       # Need to get prices from the app's relationships
       # Prices from app's relationship doess not have price tier so need to fetch app price with price tier relationship
       app_prices = app.prices
+
+      # PATCH added to resolve https://github.com/fastlane/fastlane/issues/21125
+      if app_prices.nil?
+        UI.message("App has no prices yet... no changes required.")
+        return
+      end
+
       if app_prices.first
         app_price = Spaceship::ConnectAPI.get_app_price(app_price_id: app_prices.first.id, includes: "priceTier").first
         old_price = app_price.price_tier.id
