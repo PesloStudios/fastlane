@@ -59,7 +59,8 @@ module Spaceship
 
       ESSENTIAL_INCLUDES = [
         "appStoreVersions",
-        "prices"
+        # PATCH added to resolve https://github.com/fastlane/fastlane/issues/21125
+        #"prices"
       ].join(",")
 
       def self.type
